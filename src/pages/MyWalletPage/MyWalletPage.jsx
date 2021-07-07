@@ -16,7 +16,8 @@ const MyWalletPage = ({ operationsHistory, setOperationsHistory }) => {
   const { dollars, bitcoins } = useSelector((state) => state.wallet);
 
   const handleChangeDollarsScore = useCallback((isWithdraw) => {
-    if (isWithdraw ? dollars >= DEFAULT_WITHDRAW : true) {
+    const isCheck = isWithdraw ? dollars >= DEFAULT_WITHDRAW : true;
+    if (isCheck) {
       const data = { score: isWithdraw ? dollars - DEFAULT_WITHDRAW : dollars + DEFAULT_WITHDRAW };
       const title = `100$ ${isWithdraw ? 'Withdraw' : 'Deposit'}`;
       dispatch(deposit(data));
