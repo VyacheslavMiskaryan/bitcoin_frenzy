@@ -9,10 +9,10 @@ const initialState = {
 const getPageDataReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'DEPOSIT':
-      sessionStorage.setItem('dollars', action.payload.deposit);
+      sessionStorage.setItem('dollars', action.payload.score);
       return {
         ...state,
-        dollars: action.payload.deposit,
+        dollars: action.payload.score,
       };
     case 'BUY_BITCOIN':
       sessionStorage.setItem('dollars', action.payload.dollars);

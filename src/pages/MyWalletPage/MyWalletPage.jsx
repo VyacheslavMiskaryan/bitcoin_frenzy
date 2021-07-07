@@ -13,16 +13,11 @@ const MyWalletPage = ({ operationsHistory, setOperationsHistory }) => {
   const dispatch = useDispatch();
   const { dollars, bitcoins } = useSelector((state) => state.wallet);
 
-  const handleMakeDeposit = useCallback(() => {
-    dispatch(deposit({ deposit: dollars + 100 }));
-    const title = '100$ Deposit';
-    createOperationsHistory(title, operationsHistory, setOperationsHistory);
-  }, [dispatch, dollars, operationsHistory, setOperationsHistory]);
-
-  const handleMakeWithdraw = useCallback(() => {
-    if (dollars >= 100) {
-      dispatch(deposit({ deposit: dollars - 100 }));
-      const title = '100$ Withdraw';
+  const handleChangeDollarsScore = useCallback((isWithdraw) => {
+    if (isWithdraw ? dollars >= 100 : true) {
+      const data = isWithdraw ? { score: dollars - 100 } : { score: dollars + 100 };
+      const title = isWithdraw ? '100$ Withdraw' : '100$ Deposit';
+      dispatch(deposit(data));
       createOperationsHistory(title, operationsHistory, setOperationsHistory);
     }
   }, [dispatch, dollars, operationsHistory, setOperationsHistory]);
@@ -46,7 +41,7 @@ const MyWalletPage = ({ operationsHistory, setOperationsHistory }) => {
           variant="contained"
           color="primary"
           className={classes.button}
-          onClick={handleMakeDeposit}
+          onClick={() => handleChangeDollarsScore(false)}
         >
           Deposit 100$
         </Button>
@@ -54,7 +49,7 @@ const MyWalletPage = ({ operationsHistory, setOperationsHistory }) => {
           variant="contained"
           color="primary"
           className={classes.button}
-          onClick={handleMakeWithdraw}
+          onClick={() => handleChangeDollarsScore(true)}
           disabled={dollars < 100}
         >
           Withdraw 100$

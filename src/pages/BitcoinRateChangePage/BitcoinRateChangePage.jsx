@@ -16,16 +16,11 @@ const BitcoinRateChangePage = ({ operationsHistory, setOperationsHistory }) => {
   const dispatch = useDispatch();
   const { bitcoinRate } = useSelector((state) => state.wallet);
 
-  const handleIncreaseBitcoinPrice = useCallback(() => {
-    dispatch(changeBitcoinPrice({ rate: bitcoinRate + 1000 }));
-    const title = 'Increase Bitcoin price by 1,000$';
-    createOperationsHistory(title, operationsHistory, setOperationsHistory);
-  }, [bitcoinRate, dispatch, operationsHistory, setOperationsHistory]);
-
-  const handleDecreaseBitcoinPrice = useCallback(() => {
-    if (bitcoinRate >= 1000) {
-      dispatch(changeBitcoinPrice({ rate: bitcoinRate - 1000 }));
-      const title = 'Decreased Bitcoin price by 1,000$';
+  const handleChangeRate = useCallback((isDecrease) => {
+    if (isDecrease ? bitcoinRate >= 1000 : true) {
+      const data = isDecrease ? { rate: bitcoinRate - 1000 } : { rate: bitcoinRate + 1000 };
+      const title = isDecrease ? 'Decreased Bitcoin price by 1,000$' : 'Increase Bitcoin price by 1,000$';
+      dispatch(changeBitcoinPrice(data));
       createOperationsHistory(title, operationsHistory, setOperationsHistory);
     }
   }, [bitcoinRate, dispatch, operationsHistory, setOperationsHistory]);
@@ -46,7 +41,7 @@ const BitcoinRateChangePage = ({ operationsHistory, setOperationsHistory }) => {
           className={[global.button, classes.rateButton].join(' ')}
           variant="contained"
           color="primary"
-          onClick={handleIncreaseBitcoinPrice}
+          onClick={() => handleChangeRate(false)}
         >
           Increase Bitcoin Price (+1,000)
         </Button>
@@ -54,7 +49,7 @@ const BitcoinRateChangePage = ({ operationsHistory, setOperationsHistory }) => {
           className={[global.button, classes.rateButton].join(' ')}
           variant="contained"
           color="primary"
-          onClick={handleDecreaseBitcoinPrice}
+          onClick={() => handleChangeRate(true)}
           disabled={(bitcoinRate <= 1000)}
         >
           Decrease Bitcoin Price (-1,000)

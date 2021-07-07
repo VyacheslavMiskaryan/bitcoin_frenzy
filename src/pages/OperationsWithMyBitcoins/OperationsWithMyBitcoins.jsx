@@ -13,33 +13,28 @@ const OperationsWithMyBitcoins = ({ isBuyPage, operationsHistory, setOperationsH
   const dispatch = useDispatch();
   const { dollars, bitcoins, bitcoinRate } = useSelector((state) => state.wallet);
 
-  const handleBuyBitcoin = useCallback(() => {
-    if (dollars >= bitcoinRate) {
-      dispatch(buyBitcoin({
-        bitcoins: bitcoins + 1,
-        dollars: dollars - bitcoinRate,
-      }));
-      const title = 'Purchased 1 Bitcoin';
-      createOperationsHistory(title, operationsHistory, setOperationsHistory);
-    }
-  }, [bitcoinRate, bitcoins, dispatch, dollars, operationsHistory, setOperationsHistory]);
-
-  const handleSellBitcoin = useCallback(() => {
-    if (bitcoins >= 1) {
-      dispatch(buyBitcoin({
+  const handleChangeBitcoinsScore = useCallback(() => {
+    if (!isBuyPage ? bitcoins >= 1 : true) {
+      const data = !isBuyPage ? {
         bitcoins: bitcoins - 1,
         dollars: dollars + bitcoinRate,
-      }));
-      const title = 'Sell 1 Bitcoin';
+      } : {
+        bitcoins: bitcoins + 1,
+        dollars: dollars - bitcoinRate,
+      };
+      const title = !isBuyPage ? 'Sell 1 Bitcoin' : 'Purchased 1 Bitcoin';
+      dispatch(buyBitcoin(data));
       createOperationsHistory(title, operationsHistory, setOperationsHistory);
     }
-  }, [bitcoinRate, bitcoins, dispatch, dollars, operationsHistory, setOperationsHistory]);
+  }, [
+    bitcoinRate, bitcoins, dispatch, dollars, isBuyPage, operationsHistory, setOperationsHistory,
+  ]);
 
   return (
     <div className="page-container">
       <div className="title">
         <h2>
-          Bitcoin price
+          Bitcoin price is
           {' '}
           {bitcoinRate}
           $
@@ -64,7 +59,7 @@ const OperationsWithMyBitcoins = ({ isBuyPage, operationsHistory, setOperationsH
       <Button
         variant="contained"
         color="primary"
-        onClick={isBuyPage ? handleBuyBitcoin : handleSellBitcoin}
+        onClick={isBuyPage ? handleChangeBitcoinsScore : handleChangeBitcoinsScore}
         className={classes.button}
         disabled={isBuyPage ? (dollars < bitcoinRate) : (bitcoins < 1)}
       >
