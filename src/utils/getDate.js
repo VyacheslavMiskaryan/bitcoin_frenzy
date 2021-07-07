@@ -1,20 +1,21 @@
-/* eslint-disable no-restricted-syntax */
 const getDate = () => {
   const date = new Date();
-  const actionDate = {};
-  actionDate.minutes = date.getMinutes();
-  actionDate.hour = date.getHours();
-  actionDate.day = date.getUTCDate();
-  actionDate.month = date.getMonth() + 1;
-  actionDate.year = date.getFullYear();
+  let minutes = date.getMinutes();
+  const hour = date.getHours();
+  let day = date.getUTCDate();
+  let month = date.getMonth() + 1;
+  const year = date.getFullYear();
 
-  Object.keys(actionDate).forEach((item) => {
-    let value = item;
-    if (value < 10) {
-      value = `0${item}`;
-    }
-  });
-  return `${actionDate.hour}/${actionDate.month}/${actionDate.year} ${actionDate.hour}:${actionDate.minutes}`;
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  if (day < 10) {
+    day = `0${day}`;
+  }
+  if (month < 10) {
+    month = `0${month}`;
+  }
+  return `${day}/${month}/${year} ${hour}:${minutes}`;
 };
 
 export default getDate;

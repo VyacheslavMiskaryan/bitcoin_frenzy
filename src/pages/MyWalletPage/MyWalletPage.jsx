@@ -1,36 +1,34 @@
-/* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { Button } from '@material-ui/core';
 
 import { deposit } from '../../redux/actions';
-import MyWalletPageMaterialStyles from './MyWalletPageMaterialStyles';
-import './MyWalletPageStyles.sass';
+import createOperationsHistory from '../../utils/createOperationsHistory';
+import GlobalStyles from '../../globalStyles';
 
 const MyWalletPage = ({ operationsHistory, setOperationsHistory }) => {
-  const classes = MyWalletPageMaterialStyles();
+  const classes = GlobalStyles();
   const dispatch = useDispatch();
   const { dollars, bitcoins } = useSelector((state) => state.wallet);
 
-  const handleMakeDeposit = () => {
+  const handleMakeDeposit = useCallback(() => {
     dispatch(deposit({ deposit: dollars + 100 }));
-    const newOperation = {
-      id: operationsHistory.length,
-      title: '100$ Deposit',
-    };
-    setOperationsHistory([...operationsHistory, newOperation]);
-  };
-  console.log('operationsHistory', operationsHistory);
-  const handleMakeWithdraw = () => {
+    const title = '100$ Deposit';
+    createOperationsHistory(title, operationsHistory, setOperationsHistory);
+  }, [dispatch, dollars, operationsHistory, setOperationsHistory]);
+
+  const handleMakeWithdraw = useCallback(() => {
     if (dollars >= 100) {
       dispatch(deposit({ deposit: dollars - 100 }));
+      const title = '100$ Withdraw';
+      createOperationsHistory(title, operationsHistory, setOperationsHistory);
     }
-  };
+  }, [dispatch, dollars, operationsHistory, setOperationsHistory]);
 
   return (
-    <div className="my-wallet-area">
+    <div className="page-container">
       <div className="title">
         <h2>Your Bitcoin wallet</h2>
       </div>
@@ -43,7 +41,7 @@ const MyWalletPage = ({ operationsHistory, setOperationsHistory }) => {
           Bitcoins
         </h2>
       </div>
-      <div className="wallet-manager">
+      <div className="page-manager">
         <Button
           variant="contained"
           color="primary"
@@ -62,11 +60,19 @@ const MyWalletPage = ({ operationsHistory, setOperationsHistory }) => {
           Withdraw 100$
         </Button>
       </div>
+      <div className="error-field">
+        {(dollars < 100) && <span>You cannot withdraw less than 100$</span>}
+      </div>
     </div>
   );
 };
 
 MyWalletPage.propTypes = {
+  operationsHistory: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    date: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+  })).isRequired,
   setOperationsHistory: PropTypes.func.isRequired,
 };
 
