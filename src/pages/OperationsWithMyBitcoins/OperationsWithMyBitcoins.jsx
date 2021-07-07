@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
 
 import { buyBitcoin } from '../../redux/actions';
+import { BIG_BITCOIN_PRICE } from '../../constants';
 import createOperationsHistory from '../../utils/createOperationsHistory';
+
 import GlobalStyles from '../../globalStyles';
 
 const OperationsWithMyBitcoins = ({ isBuyPage, operationsHistory, setOperationsHistory }) => {
@@ -22,7 +24,7 @@ const OperationsWithMyBitcoins = ({ isBuyPage, operationsHistory, setOperationsH
         bitcoins: bitcoins + 1,
         dollars: dollars - bitcoinRate,
       };
-      const title = !isBuyPage ? 'Sell 1 Bitcoin' : 'Purchased 1 Bitcoin';
+      const title = `${!isBuyPage ? 'Sell' : 'Purchased'} Bitcoin`;
       dispatch(buyBitcoin(data));
       createOperationsHistory(title, operationsHistory, setOperationsHistory);
     }
@@ -34,22 +36,21 @@ const OperationsWithMyBitcoins = ({ isBuyPage, operationsHistory, setOperationsH
     <div className="page-container">
       <div className="title">
         <h2>
-          Bitcoin price is
-          {' '}
-          {bitcoinRate}
-          $
+          Bitcoin price is&nbsp;
+          <span>{bitcoinRate}</span>
+          &#36;
         </h2>
       </div>
       <div className="score">
         <h2>
           {
-            (bitcoinRate < 10000)
+            (bitcoinRate < BIG_BITCOIN_PRICE)
             && (isBuyPage
               ? 'Prices are low, buy more!'
               : 'Prices are low, are you sure you want to sell?')
           }
           {
-            (bitcoinRate >= 10000)
+            (bitcoinRate >= BIG_BITCOIN_PRICE)
             && (isBuyPage
               ? 'Prices are high, are you sure that you want to buy?'
               : 'Prices are high, sell now!')
@@ -84,4 +85,4 @@ OperationsWithMyBitcoins.propTypes = {
   setOperationsHistory: PropTypes.func.isRequired,
 };
 
-export default OperationsWithMyBitcoins;
+export default React.memo(OperationsWithMyBitcoins);

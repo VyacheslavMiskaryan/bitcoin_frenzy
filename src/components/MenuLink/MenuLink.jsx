@@ -28,4 +28,4 @@ MenuLink.propTypes = {
   url: PropTypes.string.isRequired,
 };
 
-export default MenuLink;
+export default React.memo(MenuLink);

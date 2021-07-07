@@ -7,3 +7,4 @@ buy and sell bitcoins, change the bitcoin price.
 
 * install all required dependencies - npm install
 * launch the application - npm start
+* to create a production build, use npm run build.

@@ -34,4 +34,4 @@ OperationsHistorySideBar.propTypes = {
   })).isRequired,
 };
 
-export default OperationsHistorySideBar;
+export default React.memo(OperationsHistorySideBar);

@@ -1,20 +1,9 @@
-const menuLinks = [
-  {
-    name: 'MY WALLET',
-    link: 'wallet',
-  },
-  {
-    name: 'BUY BITCOIN',
-    link: 'buy',
-  },
-  {
-    name: 'SELL BITCOIN',
-    link: 'sell',
-  },
-  {
-    name: 'BITCOIN PRICE',
-    link: 'bitcoin',
-  },
-];
+const DEFAULT_BITCOIN_PRICE = 1000;
+const BIG_BITCOIN_PRICE = 10000;
+const DEFAULT_WITHDRAW = 100;
 
-export default menuLinks;
+export {
+  DEFAULT_BITCOIN_PRICE,
+  BIG_BITCOIN_PRICE,
+  DEFAULT_WITHDRAW,
+};

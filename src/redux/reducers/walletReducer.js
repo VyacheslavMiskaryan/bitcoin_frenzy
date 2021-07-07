@@ -1,9 +1,10 @@
-import getDefaultValue from '../../utils/sessionStorage';
+import { DEFAULT_BITCOIN_PRICE } from '../../constants';
+import getDefaultValue from './utils/sessionStorage';
 
 const initialState = {
   dollars: getDefaultValue('dollars', 200),
   bitcoins: getDefaultValue('bitcoins', 1),
-  bitcoinRate: getDefaultValue('bitcoinRate', 1000),
+  bitcoinRate: getDefaultValue('bitcoinRate', DEFAULT_BITCOIN_PRICE),
 };
 
 const getPageDataReducer = (state = initialState, action) => {

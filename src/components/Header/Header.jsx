@@ -20,26 +20,18 @@ const Header = () => {
           <span>&nbsp;BITCOIN FRENZY</span>
         </div>
         <div className={classes.bitcoinRate}>
-          1
-          {' '}
-          BITCOIN
-          {' '}
-          =
-          {' '}
+          1&ensp;BITCOIN&ensp;=&ensp;
           {bitcoinRate}
-          {' '}
-          $
+          &ensp;&#36;
         </div>
         <div className={classes.walletInformation}>
           <span>
             {dollars}
-            {' '}
-            $
+            &ensp;&#36;
           </span>
           <span>
             {bitcoins}
-            {' '}
-            BITCOINS
+            &ensp;BITCOINS
           </span>
         </div>
       </Toolbar>

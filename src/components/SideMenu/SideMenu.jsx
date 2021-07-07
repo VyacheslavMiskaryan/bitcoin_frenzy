@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import MenuLink from '../MenuLink';
-import menuLinks from '../../constants';
+import menuLinks from './utils/constants';
 import './SideMenuStyles.sass';
 
 const SideMenu = () => {
@@ -16,7 +16,7 @@ const SideMenu = () => {
     <div className="menu">
       {menuLinks.map((link) => (
         <MenuLink
-          key={Math.random()}
+          key={`link-${link.link}`}
           menuText={link.name}
           link={link.link}
           url={url}
