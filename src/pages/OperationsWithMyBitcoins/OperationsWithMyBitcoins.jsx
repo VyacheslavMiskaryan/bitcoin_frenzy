@@ -16,8 +16,8 @@ const OperationsWithMyBitcoins = ({ isBuyPage, operationsHistory, setOperationsH
   const { dollars, bitcoins, bitcoinRate } = useSelector((state) => state.wallet);
 
   const handleChangeBitcoinsScore = useCallback(() => {
-    const isCheck = !isBuyPage ? bitcoins >= 1 : true;
-    if (isCheck) {
+    const isCheckActive = !isBuyPage ? bitcoins >= 1 : true;
+    if (isCheckActive) {
       const data = !isBuyPage ? {
         bitcoins: bitcoins - 1,
         dollars: dollars + bitcoinRate,

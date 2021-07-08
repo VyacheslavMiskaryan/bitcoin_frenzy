@@ -6,7 +6,7 @@ import menuLinkIcon from '../../assets/images/icon.svg';
 import './MenuLinkStyles.sass';
 
 const MenuLink = ({
-  menuText, link, url,
+  menuText, isActive, link,
 }) => (
   <div className="link-area">
     <Link
@@ -15,7 +15,7 @@ const MenuLink = ({
     >
       <img src={menuLinkIcon} alt="icon" />
       &ensp;
-      <span className={(url === link) ? 'active-link' : 'link'}>
+      <span className={isActive ? 'active-link' : 'link'}>
         {menuText}
       </span>
     </Link>
@@ -24,8 +24,8 @@ const MenuLink = ({
 
 MenuLink.propTypes = {
   menuText: PropTypes.string.isRequired,
+  isActive: PropTypes.bool.isRequired,
   link: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
 };
 
 export default React.memo(MenuLink);

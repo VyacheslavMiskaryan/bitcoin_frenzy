@@ -19,8 +19,8 @@ const BitcoinRateChangePage = ({ operationsHistory, setOperationsHistory }) => {
   const { bitcoinRate } = useSelector((state) => state.wallet);
 
   const handleChangeRate = useCallback((isDecrease) => {
-    const isCheck = isDecrease ? bitcoinRate >= DEFAULT_BITCOIN_PRICE : true;
-    if (isCheck) {
+    const isCheckActive = isDecrease ? bitcoinRate >= DEFAULT_BITCOIN_PRICE : true;
+    if (isCheckActive) {
       const data = {
         rate: isDecrease ? bitcoinRate - DEFAULT_BITCOIN_PRICE
           : bitcoinRate + DEFAULT_BITCOIN_PRICE,

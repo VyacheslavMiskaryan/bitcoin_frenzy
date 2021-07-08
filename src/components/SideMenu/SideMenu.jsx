@@ -14,15 +14,18 @@ const SideMenu = () => {
 
   return (
     <div className="menu">
-      {menuLinks.map((link) => (
-        <MenuLink
-          key={`link-${link.link}`}
-          menuText={link.name}
-          link={link.link}
-          url={url}
-          setUrl={setUrl}
-        />
-      ))}
+      {menuLinks.map((link) => {
+        const isActive = link.link === url;
+        return (
+          <MenuLink
+            key={`link-${link.link}`}
+            menuText={link.name}
+            isActive={isActive}
+            link={link.link}
+            setUrl={setUrl}
+          />
+        );
+      })}
     </div>
   );
 };
