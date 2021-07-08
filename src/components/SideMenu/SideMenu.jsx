@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import MenuLink from '../MenuLink';
-import menuLinks from './utils/constants';
+import menuLinks from './constants';
 import './SideMenuStyles.sass';
 
 const SideMenu = () => {
