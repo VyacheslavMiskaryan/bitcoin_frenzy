@@ -4,9 +4,12 @@ import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import Header from './components/Header';
 import SideMenu from './components/SideMenu';
 import OperationsHistorySideBar from './components/OperationsHistorySideBar';
+
 import MyWalletPage from './pages/MyWalletPage';
-import OperationsWithMyBitcoins from './pages/OperationsWithMyBitcoins';
-import BitcoinRateChangePage from './pages/BitcoinRateChangePage';
+import BuyBitcoinPage from './pages/BuyBitcoinPage';
+import SellBitcoin from './pages/SellBitcoin';
+import BitcoinRateChangePage from './pages/BitcoinPrice';
+
 import './global.sass';
 
 const App = () => {
@@ -14,9 +17,9 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header />
-      <div className="content-field">
-        <BrowserRouter>
+      <BrowserRouter>
+        <Header />
+        <div className="content-field">
           <SideMenu />
           <Route exact path="/">
             <Redirect to="/wallet" />
@@ -28,15 +31,13 @@ const App = () => {
             />
           </Route>
           <Route exact path="/buy">
-            <OperationsWithMyBitcoins
-              isBuyPage
+            <BuyBitcoinPage
               operationsHistory={operationsHistory}
               setOperationsHistory={setOperationsHistory}
             />
           </Route>
           <Route exact path="/sell">
-            <OperationsWithMyBitcoins
-              isBuyPage={false}
+            <SellBitcoin
               operationsHistory={operationsHistory}
               setOperationsHistory={setOperationsHistory}
             />
@@ -47,9 +48,9 @@ const App = () => {
               setOperationsHistory={setOperationsHistory}
             />
           </Route>
-        </BrowserRouter>
-        <OperationsHistorySideBar operationsHistory={operationsHistory} />
-      </div>
+          <OperationsHistorySideBar operationsHistory={operationsHistory} />
+        </div>
+      </BrowserRouter>
     </div>
   );
 };

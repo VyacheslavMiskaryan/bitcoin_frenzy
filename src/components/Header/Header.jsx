@@ -1,30 +1,35 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import {
   AppBar, Toolbar,
 } from '@material-ui/core';
 
 import bitcoin from '../../assets/images/bitcoin.svg';
-import HeaderStyles from './HeaderStyles';
+import HeaderMaterialStyles from './HeaderMaterialStyles';
+import './HeaderStyles.sass';
 
 const Header = () => {
-  const classes = HeaderStyles();
+  const classes = HeaderMaterialStyles();
   const { dollars, bitcoins, bitcoinRate } = useSelector((state) => state.wallet);
 
   return (
     <AppBar position="static">
       <Toolbar className={classes.headerContainer}>
-        <div className={classes.logoContainer}>
+        <Link
+          to="/wallet"
+          className="link-area"
+        >
           <img src={bitcoin} alt="logo" />
           <span>&nbsp;BITCOIN FRENZY</span>
-        </div>
-        <div className={classes.bitcoinRate}>
+        </Link>
+        <div className="bitcoin-rate">
           1&ensp;BITCOIN&ensp;=&ensp;
           {bitcoinRate}
           &ensp;&#36;
         </div>
-        <div className={classes.walletInformation}>
+        <div className="wallet-information">
           <span>
             {dollars}
             &ensp;&#36;

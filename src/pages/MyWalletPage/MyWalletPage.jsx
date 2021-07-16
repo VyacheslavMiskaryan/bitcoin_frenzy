@@ -2,16 +2,18 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { Button } from '@material-ui/core';
+import PageTitle from '../../components/PageTitle';
+import SubTitle from '../../components/SubTitle';
+import MainButton from '../../components/MainButton';
+import ErrorField from '../../components/ErrorField';
 
 import { deposit } from '../../redux/actions';
 import { DEFAULT_WITHDRAW } from '../../constants';
 import createOperationsHistory from '../../utils/createOperationsHistory';
 
-import GlobalStyles from '../../globalStyles';
+import './MyWallet.sass';
 
 const MyWalletPage = ({ operationsHistory, setOperationsHistory }) => {
-  const classes = GlobalStyles();
   const dispatch = useDispatch();
   const { dollars, bitcoins } = useSelector((state) => state.wallet);
 
@@ -27,38 +29,25 @@ const MyWalletPage = ({ operationsHistory, setOperationsHistory }) => {
 
   return (
     <div className="page-container">
-      <div className="title">
-        <h2>Your Bitcoin wallet</h2>
-      </div>
-      <div className="score">
-        <h2>
-          You now own&ensp;
-          {bitcoins}
-          &ensp;Bitcoins
-        </h2>
-      </div>
+      <PageTitle title="Your Bitcoin wallet" />
+      <SubTitle subTitleMessage={`You now own ${bitcoins} Bitcoins`} />
       <div className="page-manager">
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          onClick={() => handleChangeDollarsScore(false)}
-        >
-          Deposit 100&#36;
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          onClick={() => handleChangeDollarsScore(true)}
-          disabled={dollars < DEFAULT_WITHDRAW}
-        >
-          Withdraw 100&#36;
-        </Button>
+        <MainButton
+          handler={handleChangeDollarsScore}
+          title="Deposit 100$"
+        />
+        <MainButton
+          handler={handleChangeDollarsScore}
+          handlerArgument
+          isDisable={dollars < DEFAULT_WITHDRAW}
+          title="Withdraw 100$"
+        />
       </div>
-      <div className="error-field">
-        {(dollars < DEFAULT_WITHDRAW) && <span>You cannot withdraw less than 100&#36;</span>}
-      </div>
+      <ErrorField
+        value={dollars}
+        threshold={DEFAULT_WITHDRAW}
+        errorMessage="You can't withdraw less than 100&#36;"
+      />
     </div>
   );
 };
