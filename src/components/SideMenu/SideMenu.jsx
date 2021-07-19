@@ -3,11 +3,12 @@ import { useLocation } from 'react-router-dom';
 
 import MenuLink from '../MenuLink';
 import menuLinks from './constants';
-import './SideMenuStyles.sass';
+import './styles.sass';
 
 const SideMenu = () => {
   const location = useLocation();
   const [url, setUrl] = useState(location.pathname.slice(1));
+
   useEffect(() => {
     setUrl(location.pathname.slice(1));
   }, [location.pathname]);

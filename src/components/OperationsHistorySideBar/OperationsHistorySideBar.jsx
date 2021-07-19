@@ -1,13 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import { List, ListItem, Divider } from '@material-ui/core';
 
-import OperationsHistorySideBarMaterialStyles from './OperationHistorySideBarMaterialStyles';
-import './OperationsHistorySideBarStyles.sass';
+import OperationsHistorySideBarMaterialStyles from './styles';
+import './styles.sass';
 
-const OperationsHistorySideBar = ({ operationsHistory }) => {
+const OperationsHistorySideBar = () => {
   const classes = OperationsHistorySideBarMaterialStyles();
+  const { operationsHistory } = useSelector((state) => state.wallet);
 
   return (
     <div className="operations-history-container">
@@ -24,14 +25,6 @@ const OperationsHistorySideBar = ({ operationsHistory }) => {
       </List>
     </div>
   );
-};
-
-OperationsHistorySideBar.propTypes = {
-  operationsHistory: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    date: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-  })).isRequired,
 };
 
 export default React.memo(OperationsHistorySideBar);

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './SubTitleStyles.sass';
+import './styles.sass';
 
 const SubTitle = ({ subTitleMessage }) => (
   <div className="score">

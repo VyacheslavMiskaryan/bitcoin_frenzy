@@ -1,19 +1,23 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 
-import PageTitle from '../../components/PageTitle';
-import SubTitle from '../../components/SubTitle';
-import MainButton from '../../components/MainButton';
-import ErrorField from '../../components/ErrorField';
+import {
+  PageContainer,
+  PageTitle,
+  SubTitle,
+  MainButton,
+  ErrorField,
+} from '../../components';
 
-import { buyBitcoin } from '../../redux/actions';
+import { changeTheAmountOfBitcoins } from '../../redux/actions';
 import { BIG_BITCOIN_PRICE } from '../../constants';
-import createOperationsHistory from '../../utils/createOperationsHistory';
+import utils from '../../utils';
 
-const BuyBitcoinPage = ({ operationsHistory, setOperationsHistory }) => {
+const BuyBitcoinPage = () => {
   const dispatch = useDispatch();
-  const { dollars, bitcoins, bitcoinRate } = useSelector((state) => state.wallet);
+  const {
+    dollars, bitcoins, bitcoinRate, operationsHistory,
+  } = useSelector((state) => state.wallet);
 
   const handleChangeBitcoinsScore = useCallback(() => {
     if (dollars >= bitcoinRate) {
@@ -22,42 +26,35 @@ const BuyBitcoinPage = ({ operationsHistory, setOperationsHistory }) => {
         dollars: dollars - bitcoinRate,
       };
       const title = 'Purchased Bitcoin';
-      dispatch(buyBitcoin(data));
-      createOperationsHistory(title, operationsHistory, setOperationsHistory);
+      data.history = utils(title, operationsHistory);
+      dispatch(changeTheAmountOfBitcoins(data));
     }
-  }, [bitcoinRate, bitcoins, dispatch, dollars, operationsHistory, setOperationsHistory]);
+  }, [bitcoinRate, bitcoins, dispatch, dollars, operationsHistory]);
 
   return (
-    <div className="page-container">
-      <PageTitle title={`Bitcoin price is ${bitcoinRate} $`} />
-      <SubTitle
-        subTitleMessage={
-          `Prices are ${bitcoinRate < BIG_BITCOIN_PRICE
-            ? 'low, buy more!'
-            : 'high, are you sure that you want to buy?'}`
-        }
-      />
-      <MainButton
-        handler={handleChangeBitcoinsScore}
-        isDisable={dollars < bitcoinRate}
-        title="Buy 1 Bitcoin"
-      />
-      <ErrorField
-        value={dollars}
-        threshold={bitcoinRate}
-        errorMessage="You don't have enough money to buy one bitcoin"
-      />
-    </div>
+    <PageContainer>
+      <>
+        <PageTitle title={`Bitcoin price is ${bitcoinRate} $`} />
+        <SubTitle
+          subTitleMessage={
+            `Prices are ${bitcoinRate < BIG_BITCOIN_PRICE
+              ? 'low, buy more!'
+              : 'high, are you sure that you want to buy?'}`
+          }
+        />
+        <MainButton
+          handler={handleChangeBitcoinsScore}
+          isDisable={dollars < bitcoinRate}
+          title="Buy 1 Bitcoin"
+        />
+        <ErrorField
+          value={dollars}
+          threshold={bitcoinRate}
+          errorMessage="You don't have enough money to buy one bitcoin"
+        />
+      </>
+    </PageContainer>
   );
-};
-
-BuyBitcoinPage.propTypes = {
-  operationsHistory: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    date: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-  })).isRequired,
-  setOperationsHistory: PropTypes.func.isRequired,
 };
 
 export default React.memo(BuyBitcoinPage);

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './ErrorFieldStyles.sass';
+import './styles.sass';
 
 const ErrorField = ({ value, threshold, errorMessage }) => (
   <div className="error-area">

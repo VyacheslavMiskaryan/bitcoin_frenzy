@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 import { Button } from '@material-ui/core';
 
-import MainButtonMaterialStyles from './MainButtonMaterialStyles';
+import Styles from './styles';
 
 const MainButton = ({
   handler, handlerArgument, isDisable, title, isPriceButton,
 }) => {
-  const classes = MainButtonMaterialStyles();
+  const classes = Styles();
 
   return (
     <Button

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import menuLinkIcon from '../../assets/images/icon.svg';
-import './MenuLinkStyles.sass';
+import './styles.sass';
 
 const MenuLink = ({
   menuText, isActive, link,

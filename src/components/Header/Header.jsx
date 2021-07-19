@@ -7,11 +7,11 @@ import {
 } from '@material-ui/core';
 
 import bitcoin from '../../assets/images/bitcoin.svg';
-import HeaderMaterialStyles from './HeaderMaterialStyles';
-import './HeaderStyles.sass';
+import Styles from './styles';
+import './styles.sass';
 
 const Header = () => {
-  const classes = HeaderMaterialStyles();
+  const classes = Styles();
   const { dollars, bitcoins, bitcoinRate } = useSelector((state) => state.wallet);
 
   return (

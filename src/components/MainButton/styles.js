@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import colors from '../../colors';
 
-const MainButtonMaterialStyles = makeStyles(() => ({
+const Styles = makeStyles(() => ({
   button: {
     marginBottom: 30,
     borderRadius: 10,
@@ -17,4 +17,4 @@ const MainButtonMaterialStyles = makeStyles(() => ({
   },
 }));
 
-export default MainButtonMaterialStyles;
+export default Styles;

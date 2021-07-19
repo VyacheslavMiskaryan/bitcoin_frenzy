@@ -18,13 +18,14 @@ const getDate = () => {
   return `${day}/${month}/${year} ${hour}:${minutes}`;
 };
 
-const createOperationsHistory = (title, operationsHistory, setOperationsHistory) => {
+const utils = (title, operationsHistory) => {
   const newOperation = {
     id: operationsHistory.length,
     title,
     date: getDate(),
   };
-  setOperationsHistory([newOperation, ...operationsHistory]);
+
+  return [newOperation, ...operationsHistory];
 };
 
-export default createOperationsHistory;
+export default utils;

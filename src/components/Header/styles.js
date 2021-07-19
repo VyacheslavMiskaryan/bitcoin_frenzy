@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import colors from '../../colors';
 
-const HeaderMaterialStyles = makeStyles(() => ({
+const Styles = makeStyles(() => ({
   headerContainer: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -10,4 +10,4 @@ const HeaderMaterialStyles = makeStyles(() => ({
   },
 }));
 
-export default HeaderMaterialStyles;
+export default Styles;
