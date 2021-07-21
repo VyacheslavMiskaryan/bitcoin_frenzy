@@ -1,16 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import './styles.sass';
 
-const PageTitle = ({ title }) => (
+type PageTitleType = {
+  title: string,
+}
+
+const PageTitle = ({ title }: PageTitleType): JSX.Element => (
   <div className="title">
     <h2>{title}</h2>
   </div>
 );
-
-PageTitle.propTypes = {
-  title: PropTypes.string.isRequired,
-};
 
 export default PageTitle;

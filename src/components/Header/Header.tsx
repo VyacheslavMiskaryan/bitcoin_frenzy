@@ -6,13 +6,15 @@ import {
   AppBar, Toolbar,
 } from '@material-ui/core';
 
+import { RootState } from '../../redux/store/store';
+
 import bitcoin from '../../assets/images/bitcoin.svg';
 import Styles from './styles';
 import './styles.sass';
 
-const Header = () => {
+const Header = (): JSX.Element => {
   const classes = Styles();
-  const { dollars, bitcoins, bitcoinRate } = useSelector((state) => state.wallet);
+  const { dollars, bitcoins, bitcoinRate } = useSelector((state: RootState) => state.wallet);
 
   return (
     <AppBar position="static">

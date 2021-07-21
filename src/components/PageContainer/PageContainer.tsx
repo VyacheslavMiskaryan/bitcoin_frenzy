@@ -1,17 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import './styles.sass';
 
-const PageContainer = ({ children }) => (
+type PageContainerType = {
+  children?: JSX.Element,
+}
+
+const PageContainer = ({ children }: PageContainerType): JSX.Element => (
   <div className="page-container">
     {children}
   </div>
 );
-
-PageContainer.propTypes = {
-  children: PropTypes.element,
-};
 
 PageContainer.defaultProps = {
   children: null,

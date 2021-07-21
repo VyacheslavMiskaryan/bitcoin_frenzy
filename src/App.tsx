@@ -14,7 +14,7 @@ import {
 
 import './global.sass';
 
-const App = () => (
+const App = (): JSX.Element => (
   <div className="App">
     <BrowserRouter>
       <Header />

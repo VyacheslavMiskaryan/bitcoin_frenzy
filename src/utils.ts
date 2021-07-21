@@ -1,9 +1,11 @@
+import OperationType from './types';
+
 const getDate = () => {
   const date = new Date();
-  let minutes = date.getMinutes();
+  let minutes: string | number = date.getMinutes();
   const hour = date.getHours();
-  let day = date.getUTCDate();
-  let month = date.getMonth() + 1;
+  let day: string | number = date.getUTCDate();
+  let month: string | number = date.getMonth() + 1;
   const year = date.getFullYear();
 
   if (minutes < 10) {
@@ -18,7 +20,7 @@ const getDate = () => {
   return `${day}/${month}/${year} ${hour}:${minutes}`;
 };
 
-const utils = (title, operationsHistory) => {
+const createHistoryItem = (title: string, operationsHistory: OperationType[]): OperationType[] => {
   const newOperation = {
     id: operationsHistory.length,
     title,
@@ -28,4 +30,4 @@ const utils = (title, operationsHistory) => {
   return [newOperation, ...operationsHistory];
 };
 
-export default utils;
+export default createHistoryItem;

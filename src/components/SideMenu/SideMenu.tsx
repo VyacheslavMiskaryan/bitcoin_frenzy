@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import MenuLink from '../MenuLink';
+
 import menuLinks from './constants';
+
 import './styles.sass';
 
-const SideMenu = () => {
+const SideMenu = (): JSX.Element => {
   const location = useLocation();
   const [url, setUrl] = useState(location.pathname.slice(1));
 
@@ -23,7 +25,6 @@ const SideMenu = () => {
             menuText={link.name}
             isActive={isActive}
             link={link.link}
-            setUrl={setUrl}
           />
         );
       })}

@@ -8,25 +8,32 @@ import {
   ErrorField,
 } from '../../components';
 
+import OperationType from '../../types';
+import { RootState } from '../../redux/store/store';
 import { changeBitcoinPrice } from '../../redux/actions';
 import { DEFAULT_BITCOIN_PRICE } from '../../constants';
-import utils from '../../utils';
+import createHistoryItem from '../../utils';
 
 import './styles.sass';
 
-const BitcoinPrice = () => {
+type DataType = {
+  bitcoinRate: number,
+  operationsHistory: OperationType[],
+}
+
+const BitcoinPrice = (): JSX.Element => {
   const dispatch = useDispatch();
-  const { bitcoinRate, operationsHistory } = useSelector((state) => state.wallet);
+  const { bitcoinRate, operationsHistory } = useSelector((state: RootState) => state.wallet);
 
   const handleChangeRate = useCallback((isDecrease) => {
     const isCheckActive = isDecrease ? bitcoinRate >= DEFAULT_BITCOIN_PRICE : true;
     if (isCheckActive) {
-      const data = {
-        rate: isDecrease ? bitcoinRate - DEFAULT_BITCOIN_PRICE
-          : bitcoinRate + DEFAULT_BITCOIN_PRICE,
-      };
       const title = `${isDecrease ? 'Decreased' : 'Increase'} Bitcoin price by 1,000$`;
-      data.history = utils(title, operationsHistory);
+      const data: DataType = {
+        bitcoinRate: isDecrease ? bitcoinRate - DEFAULT_BITCOIN_PRICE
+          : bitcoinRate + DEFAULT_BITCOIN_PRICE,
+        operationsHistory: createHistoryItem(title, operationsHistory),
+      };
       dispatch(changeBitcoinPrice(data));
     }
   }, [bitcoinRate, dispatch, operationsHistory]);

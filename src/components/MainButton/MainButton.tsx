@@ -1,13 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { Button } from '@material-ui/core';
 
 import Styles from './styles';
 
+type MainButtonTypes = {
+  handler: (p: boolean) => void,
+  handlerArgument?: boolean,
+  isDisable?: boolean,
+  title: string,
+  isPriceButton?: boolean,
+};
+
 const MainButton = ({
   handler, handlerArgument, isDisable, title, isPriceButton,
-}) => {
+}: MainButtonTypes): JSX.Element => {
   const classes = Styles();
 
   return (
@@ -15,20 +22,12 @@ const MainButton = ({
       className={[classes.button, isPriceButton && classes.priceButton].join(' ')}
       variant="contained"
       color="primary"
-      onClick={() => handler(handlerArgument)}
+      onClick={() => handler(handlerArgument as boolean)}
       disabled={isDisable}
     >
       {title}
     </Button>
   );
-};
-
-MainButton.propTypes = {
-  handler: PropTypes.func.isRequired,
-  handlerArgument: PropTypes.bool,
-  isDisable: PropTypes.bool,
-  title: PropTypes.string.isRequired,
-  isPriceButton: PropTypes.bool,
 };
 
 MainButton.defaultProps = {

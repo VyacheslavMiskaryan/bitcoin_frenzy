@@ -9,22 +9,31 @@ import {
   SubTitle,
 } from '../../components';
 
+import OperationType from '../../types';
+import { RootState } from '../../redux/store/store';
 import { changeTheAmountOfDollars } from '../../redux/actions';
 import { DEFAULT_WITHDRAW } from '../../constants';
-import utils from '../../utils';
+import createHistoryItem from '../../utils';
 
 import './styles.sass';
 
-const MyWalletPage = () => {
+type DataType = {
+  dollars: number,
+  operationsHistory: OperationType[],
+}
+
+const MyWalletPage = (): JSX.Element => {
   const dispatch = useDispatch();
-  const { dollars, bitcoins, operationsHistory } = useSelector((state) => state.wallet);
+  const { dollars, bitcoins, operationsHistory } = useSelector((state: RootState) => state.wallet);
 
   const handleChangeDollarsScore = useCallback((isWithdraw) => {
     const isCheckActive = isWithdraw ? dollars >= DEFAULT_WITHDRAW : true;
     if (isCheckActive) {
-      const data = { score: isWithdraw ? dollars - DEFAULT_WITHDRAW : dollars + DEFAULT_WITHDRAW };
       const title = `100$ ${isWithdraw ? 'Withdraw' : 'Deposit'}`;
-      data.history = utils(title, operationsHistory);
+      const data: DataType = {
+        dollars: isWithdraw ? dollars - DEFAULT_WITHDRAW : dollars + DEFAULT_WITHDRAW,
+        operationsHistory: createHistoryItem(title, operationsHistory),
+      };
       dispatch(changeTheAmountOfDollars(data));
     }
   }, [dispatch, dollars, operationsHistory]);

@@ -9,24 +9,32 @@ import {
   ErrorField,
 } from '../../components';
 
+import OperationType from '../../types';
+import { RootState } from '../../redux/store/store';
 import { changeTheAmountOfBitcoins } from '../../redux/actions';
 import { BIG_BITCOIN_PRICE } from '../../constants';
-import utils from '../../utils';
+import createHistoryItem from '../../utils';
 
-const SellBitcoin = () => {
+type DataType = {
+  bitcoins: number,
+  dollars: number,
+  operationsHistory: OperationType[],
+}
+
+const SellBitcoin = (): JSX.Element => {
   const dispatch = useDispatch();
   const {
     dollars, bitcoins, bitcoinRate, operationsHistory,
-  } = useSelector((state) => state.wallet);
+  } = useSelector((state: RootState) => state.wallet);
 
   const handleChangeBitcoinsScore = useCallback(() => {
     if (bitcoins >= 1) {
-      const data = {
+      const title = 'Sell Bitcoin';
+      const data: DataType = {
         bitcoins: bitcoins - 1,
         dollars: dollars + bitcoinRate,
+        operationsHistory: createHistoryItem(title, operationsHistory),
       };
-      const title = 'Sell Bitcoin';
-      data.history = utils(title, operationsHistory);
       dispatch(changeTheAmountOfBitcoins(data));
     }
   }, [
