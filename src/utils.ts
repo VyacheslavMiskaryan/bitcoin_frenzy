@@ -2,21 +2,12 @@ import OperationType from './types';
 
 const getDate = () => {
   const date = new Date();
-  let minutes: string | number = date.getMinutes();
+  const minutes = `${date.getMinutes() < 10 ? '0' : ''}${date.getMinutes()}`;
   const hour = date.getHours();
-  let day: string | number = date.getUTCDate();
-  let month: string | number = date.getMonth() + 1;
+  const day = `${date.getUTCDate() < 10 ? '0' : ''}${date.getUTCDate()}`;
+  const month = `${date.getMonth() < 10 ? '0' : ''}${date.getMonth()}`;
   const year = date.getFullYear();
 
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
-  if (day < 10) {
-    day = `0${day}`;
-  }
-  if (month < 10) {
-    month = `0${month}`;
-  }
   return `${day}/${month}/${year} ${hour}:${minutes}`;
 };
 

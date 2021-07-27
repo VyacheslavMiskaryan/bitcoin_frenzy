@@ -19,7 +19,7 @@ const MainButton = ({
 
   return (
     <Button
-      className={[classes.button, isPriceButton && classes.priceButton].join(' ')}
+      className={`${classes.button} ${isPriceButton && classes.priceButton}`}
       variant="contained"
       color="primary"
       onClick={() => handler(handlerArgument as boolean)}
